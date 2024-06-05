@@ -5,7 +5,6 @@ import org.apache.pdfbox.pdmodel.font.PDType0Font;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.List;
 
 public class PdfWriter {
