@@ -9,7 +9,7 @@ public class CantoConverter {
   private String text;
 
   public Canto toCanto(String text, String fileName) {
-    Canto canto = new Canto();
+    Canto canto = new Canto(text);
     canto.setFileName(fileName);
 
     List<Sheet> sheets = new ArrayList<>();

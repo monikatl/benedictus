@@ -1,7 +1,7 @@
 public class Delimiter {
-  private final String DOTTED = "<------------------>";
-  private final String START = "<- Strona nr: ";
-  private final String END = " ->";
+  public static final String DOTTED = "<------------------>";
+  public static final String START = "<- Strona nr: ";
+  public static final String END = " ->";
   private int counter = 0;
 
   public String nextDelimiter() {
