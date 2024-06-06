@@ -1,4 +1,4 @@
-import java.util.Arrays;
+import java.util.*;
 
 public class Sheet {
   public static final int ROW_COUNT = 8;
@@ -14,24 +14,35 @@ public class Sheet {
     this.delimiter = generateDelimiter(number);
   }
   private String generateFormattedSheet(String text){
-    Character [][] sheetTable = new Character[Sheet.ROW_COUNT][Sheet.COLUMN_COUNT];
-    int charCounter = 0;
+    String [] tabText = text.split(" ");
+    Stack<String> words = new Stack<>();
+    List<String> currentLineWords = new ArrayList<>();
+    Collections.addAll(words, tabText);
+    words.forEach(System.out::println);
+    StringBuilder sheet = new StringBuilder();
+
+    boolean isWordCreating = true;
+
     for(int i = 0; i < Sheet.ROW_COUNT; i++) {
-      for (int j = 0; j < Sheet.COLUMN_COUNT; j++) {
-        if(charCounter < text.length()) {
-          sheetTable[i][j] = text.charAt(charCounter);
-          charCounter++;
-        } else {
-          sheetTable[i][j] = ' ';
+      while (isWordCreating) {
+        int lineSum = 0;
+        if(words.isEmpty())
+          break;
+        int currentWordLength = words.peek().length();
+        lineSum += currentWordLength;
+        if(lineSum > 20) {
+          break;
+        }
+        else {
+          currentLineWords.add(words.pop());
+          Collections.reverse(currentLineWords);
         }
       }
-    }
-    StringBuilder sheet = new StringBuilder();
-    for(int i = 0; i < Sheet.ROW_COUNT; i++) {
-      for (int j = 0; j < Sheet.COLUMN_COUNT; j++) {
-        sheet.append(sheetTable[i][j]);
+      currentLineWords.forEach(sheet::append);
+      sheet.append('\n');
+      if (words.isEmpty()){
+        break;
       }
-      sheet.append("\n");
     }
     return sheet.toString();
   }
