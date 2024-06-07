@@ -9,7 +9,7 @@ public class Verse {
 
   public Verse(int number, String text) {
     this.number = number;
-    this.text = text;
+    this.text = text.replaceAll("\\*", "");
     this.textNumber = number + ". ";
   }
 

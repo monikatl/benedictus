@@ -15,30 +15,30 @@ public class Sheet {
   }
   private String generateFormattedSheet(String text){
     String [] tabText = text.split(" ");
+    Collections.reverse(Arrays.asList(tabText));
     Stack<String> words = new Stack<>();
     List<String> currentLineWords = new ArrayList<>();
     Collections.addAll(words, tabText);
-    words.forEach(System.out::println);
     StringBuilder sheet = new StringBuilder();
 
-    boolean isWordCreating = true;
-
     for(int i = 0; i < Sheet.ROW_COUNT; i++) {
-      while (isWordCreating) {
-        int lineSum = 0;
+      int lineSum = 0;
+      currentLineWords.clear();
+      while (true) {
         if(words.isEmpty())
           break;
         int currentWordLength = words.peek().length();
         lineSum += currentWordLength;
-        if(lineSum > 20) {
+        System.out.println(lineSum);
+        if(lineSum <= 20) {
+          currentLineWords.add(words.pop());
+          lineSum++;
+        } else {
+          System.out.println("WYCHODZĘ");
           break;
         }
-        else {
-          currentLineWords.add(words.pop());
-          Collections.reverse(currentLineWords);
-        }
       }
-      currentLineWords.forEach(sheet::append);
+      currentLineWords.forEach(word -> sheet.append(word).append(" "));
       sheet.append('\n');
       if (words.isEmpty()){
         break;
