@@ -92,9 +92,14 @@ public class Canto {
     return sheets;
   }
 
-  public String getNumberAndTitle() {
+  public String getNumberAndTitleSpaces() {
     return String.format("%-9d %s", number, cantoName);
   }
+
+  public String getNumberAndTitle() {
+    return number + " " + cantoName;
+  }
+
 
   public String getFormattedText() {
     return formattedText;

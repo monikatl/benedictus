@@ -33,10 +33,7 @@ public class Sheet {
         if(lineSum <= 20) {
           currentLineWords.add(words.pop());
           lineSum++;
-        } else {
-          System.out.println("WYCHODZĘ");
-          break;
-        }
+        } else break;
       }
       currentLineWords.forEach(word -> sheet.append(word).append(" "));
       sheet.append('\n');
@@ -67,7 +64,6 @@ public class Sheet {
       stringNumber = "0" + stringNumber;
     return stringNumber;
   }
-
 
   @Override
   public String toString() {

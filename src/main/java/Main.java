@@ -1,4 +1,7 @@
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class Main {
@@ -34,6 +37,7 @@ public class Main {
     // sub 600-699 - psalms
     cantos = cantos.stream().filter(canto -> canto.getNumber() > 699 || canto.getNumber() < 600).toList();
     PdfWriter.exportToPDF(cantos);
+    TxtWriter.exportToTXT(cantos, "cantos.txt");
 
     System.out.println("Wybierz: ");
     System.out.println("D - aby dodać nową pieśń");
@@ -58,10 +62,5 @@ public class Main {
       canto.generateTXT();
       System.out.println("Pomyślnie utworzono pieśń " + canto.getSheets() + " " + name + " " + text);
     }
-
-
-
   }
-
-
 }

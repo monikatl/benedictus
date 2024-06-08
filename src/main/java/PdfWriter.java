@@ -37,7 +37,7 @@ public class PdfWriter {
         float y = page.getMediaBox().getHeight() - margin - (cantoCount % cantosPerPage * lineHeight);
         contentStream.beginText();
         contentStream.newLineAtOffset(100, y);
-        contentStream.showText(canto.getNumberAndTitle());
+        contentStream.showText(canto.getNumberAndTitleSpaces());
         contentStream.endText();
         cantoCount++;
       }
