@@ -8,10 +8,19 @@ public class Sheet {
   private String text;
   private int rows;
 
+  public Sheet() {};
+
   public Sheet(int number, String text) {
     this.number = number;
     this.text = generateFormattedSheet(text);
     this.delimiter = generateDelimiter(number);
+  }
+
+  public static Sheet loadSheet(int number, String text) {
+    Sheet sheet = new Sheet();
+    sheet.setNumber(number);
+    sheet.setText(text);
+    return sheet;
   }
   private String generateFormattedSheet(String text){
     String [] tabText = text.split(" ");
@@ -68,5 +77,21 @@ public class Sheet {
   @Override
   public String toString() {
     return delimiter + "\n" + text;
+  }
+
+  public int getNumber() {
+    return number;
+  }
+
+  public void setNumber(int number) {
+    this.number = number;
+  }
+
+  public String getText() {
+    return "#" + text;
+  }
+
+  public void setText(String text) {
+    this.text = text;
   }
 }

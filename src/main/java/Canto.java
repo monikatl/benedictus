@@ -3,6 +3,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Canto {
 
@@ -98,6 +99,10 @@ public class Canto {
 
   public String getNumberAndTitle() {
     return number + " " + cantoName;
+  }
+
+  public String getNumberTitleCounterAndSheets() {
+    return number + "&" + cantoName + "&" + fileName + "&" + sheetCounter + "&" + sheets.stream().map(Sheet::getText).collect(Collectors.joining("&")) + "^";
   }
 
 

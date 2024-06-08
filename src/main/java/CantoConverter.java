@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class CantoConverter {
 
   String delimiter = "<------------------>\\s*<- Strona nr: \\d{3} ->\\s*<------------------>";
-  private String text;
+  private String title;
 
   public Canto toCanto(String text, String fileName) {
     Canto canto = new Canto(text);
@@ -19,12 +19,14 @@ public class CantoConverter {
     //<- Strona nr: 000 ->
     //<------------------>
 
-    //number + title + liczba stron
+    //number + title
     String trimText = text.substring(64);
     //podział na strony
     String [] textSheets = trimText.split(delimiter);
 
-    this.text = textSheets[0].trim();
+    //strona tytułowa
+    this.title = textSheets[0].trim();
+
 
     // pierwsza strona numer pieśni i tytuł
     int cantoNumber = resolveCantoNumber(fileName);
@@ -32,6 +34,18 @@ public class CantoConverter {
 
     String cantoTitle = resolveCantoTitle();
     canto.setCantoName(cantoTitle);
+
+    // strony
+
+    for (int i = 1; i < textSheets.length; i++) {
+      sheets.add(Sheet.loadSheet(i, textSheets[i]));
+    }
+
+    canto.setSheets(sheets);
+
+    // liczba stron
+    canto.setSheetCounter(sheets.size());
+
     return canto;
   }
 
@@ -40,12 +54,12 @@ public class CantoConverter {
     int number = 0;
     String regex = "\\d+";
     Pattern pattern = Pattern.compile(regex);
-    Matcher matcher = pattern.matcher(text);
+    Matcher matcher = pattern.matcher(title);
     if (matcher.find()) {
       String textNumber = matcher.group();
       number = Integer.parseInt(textNumber);
       int endIndex = matcher.end();
-      this.text = text.substring(endIndex);
+      this.title = title.substring(endIndex);
     }
     if(number==0) {
       return Integer.parseInt(fileName.split("\\.")[0]);
@@ -57,13 +71,13 @@ public class CantoConverter {
     String title;
     String regex = "\\d";
     Pattern pattern = Pattern.compile(regex);
-    Matcher matcher = pattern.matcher(text);
+    Matcher matcher = pattern.matcher(this.title);
     if (matcher.find()) {
       int startIndex = matcher.start();
-      title = text.substring(0, startIndex);
-      this.text = text.substring(startIndex);
+      title = this.title.substring(0, startIndex);
+      this.title = this.title.substring(startIndex);
     } else {
-      title = text;
+      title = this.title;
     }
     title = title
               .trim()

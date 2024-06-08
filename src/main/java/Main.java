@@ -36,7 +36,14 @@ public class Main {
     cantos.sort(Comparator.comparing(Canto::getCantoName));
     // sub 600-699 - psalms
     cantos = cantos.stream().filter(canto -> canto.getNumber() > 699 || canto.getNumber() < 600).toList();
+
+    cantos = cantos.stream().filter(canto -> canto.getNumber() < 817 || canto.getNumber() > 856).toList();
+    cantos = cantos.stream().filter(canto -> canto.getNumber() < 705 || canto.getNumber() > 723).toList();
+    cantos = cantos.stream().filter(canto -> canto.getNumber() < 775 || canto.getNumber() > 781).toList();
+    cantos = cantos.stream().filter(canto -> canto.getNumber()==Integer.parseInt(canto.getFileName().split("\\.")[0])).toList();
+    cantos = cantos.subList(27, cantos.size());
     PdfWriter.exportToPDF(cantos);
+    TxtWriter.exportToTXT(cantos);
     TxtWriter.exportToTXT(cantos, "cantos.txt");
 
     System.out.println("Wybierz: ");
