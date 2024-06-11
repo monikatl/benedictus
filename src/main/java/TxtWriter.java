@@ -15,9 +15,29 @@ public class TxtWriter {
     }
   }
 
+  public static void exportSetToTXT(List<Set> sets) {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter("sets_list.txt"))) {
+      String formattedText = sets.stream().filter(set -> !set.getTitle().isEmpty()).map(Set::getNumberWithTitle).collect(Collectors.joining("\n"));
+      writer.write(formattedText);
+      System.out.println("File created and content written successfully.");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
   public static void exportToTXT(List<Canto> cantos) {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter("cantos_list.txt"))) {
-      String formattedText = cantos.stream().filter(canto -> !canto.getCantoName().isEmpty()).map(Canto::getNumberAndTitleSpaces).collect(Collectors.joining("\n"));
+      String formattedText = cantos.stream().filter(canto -> !canto.getCantoName().isEmpty()).map(Canto::getNumberTitleAndSheetCounter).collect(Collectors.joining("\n"));
+      writer.write(formattedText);
+      System.out.println("File created and content written successfully.");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public static void exportSheetsToTXT(List<Canto> cantos) {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter("cantos_sheets.txt"))) {
+      String formattedText = cantos.stream().filter(canto -> !canto.getCantoName().isEmpty()).map(Canto::getNumberAndSheets).collect(Collectors.joining("\n"));
       writer.write(formattedText);
       System.out.println("File created and content written successfully.");
     } catch (IOException e) {

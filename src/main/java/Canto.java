@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Canto {
+public class Canto implements Piece {
 
   private Delimiter delimiterBuilder;
   private String fileName;
@@ -99,6 +99,17 @@ public class Canto {
 
   public String getNumberAndTitle() {
     return number + " " + cantoName;
+  }
+
+  public String getNumberTitleAndSheetCounter() {
+    return number + " " + cantoName + " " + getSheetCounterWithPrefix();
+  }
+
+  public String getSheetCounterWithPrefix() {
+    return "$" + sheetCounter;
+  }
+  public String getNumberAndSheets() {
+    return number + " " + sheets.stream().map(Sheet::getText).collect(Collectors.joining());
   }
 
   public String getNumberTitleCounterAndSheets() {

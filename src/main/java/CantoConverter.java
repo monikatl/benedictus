@@ -3,12 +3,13 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CantoConverter {
+public class CantoConverter implements Converter{
 
   String delimiter = "<------------------>\\s*<- Strona nr: \\d{3} ->\\s*<------------------>";
   private String title;
 
-  public Canto toCanto(String text, String fileName) {
+  @Override
+  public Piece convert(String text, String fileName) {
     Canto canto = new Canto(text);
     canto.setFileName(fileName);
 
@@ -20,6 +21,7 @@ public class CantoConverter {
     //<------------------>
 
     //number + title
+    System.out.println(text);
     String trimText = text.substring(64);
     //podział na strony
     String [] textSheets = trimText.split(delimiter);
@@ -91,6 +93,4 @@ public class CantoConverter {
 
     return sheetNumber;
   }
-
-
 }
